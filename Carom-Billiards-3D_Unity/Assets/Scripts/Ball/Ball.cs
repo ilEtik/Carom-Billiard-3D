@@ -35,9 +35,9 @@ namespace CaromBilliard
             if (OnHit != null)
                 OnHit(gameObject, other.gameObject);
 
-            if (other.gameObject.tag == "Player" && ScoreSystem.Instance.CurShots == lastShot)
+            if (other.gameObject.tag == "Player" || other.gameObject.tag == "Ball"/*  && ScoreSystem.Instance.CurShots == lastShot */)
             {
-                invoker.ExecuteCommand(new BallHitCommand(this, transform.position));
+                invoker.AddCommand(new BallHitCommand(this, transform.position, lastShot));
                 lastShot = 0;
             }
         }

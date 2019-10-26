@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{7950F321-09D1-5A7B-6A34-38F3B0C441E2}</ProjectGuid>
+    <ProjectGuid>{01A96673-5CA7-AD32-34D8-D08DF29CA23E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -83,31 +83,31 @@
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
  <Reference Include="Unity.Timeline.Editor">
- <HintPath>D:/_Privat/Bewerbung/Bewerbungsprojekte/3D-Carom-Billiards/Carom Billiards 3D/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+ <HintPath>D:/_Privat/Bewerbung/Bewerbungsprojekte/3D-Carom-Billiards/Carom-Billiard-3D/Carom-Billiards-3D_Unity/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.VSCode.Editor">
- <HintPath>D:/_Privat/Bewerbung/Bewerbungsprojekte/3D-Carom-Billiards/Carom Billiards 3D/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+ <HintPath>D:/_Privat/Bewerbung/Bewerbungsprojekte/3D-Carom-Billiards/Carom-Billiard-3D/Carom-Billiards-3D_Unity/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>D:/_Privat/Bewerbung/Bewerbungsprojekte/3D-Carom-Billiards/Carom Billiards 3D/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ <HintPath>D:/_Privat/Bewerbung/Bewerbungsprojekte/3D-Carom-Billiards/Carom-Billiard-3D/Carom-Billiards-3D_Unity/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
- <HintPath>D:/_Privat/Bewerbung/Bewerbungsprojekte/3D-Carom-Billiards/Carom Billiards 3D/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+ <HintPath>D:/_Privat/Bewerbung/Bewerbungsprojekte/3D-Carom-Billiards/Carom-Billiard-3D/Carom-Billiards-3D_Unity/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Timeline">
- <HintPath>D:/_Privat/Bewerbung/Bewerbungsprojekte/3D-Carom-Billiards/Carom Billiards 3D/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+ <HintPath>D:/_Privat/Bewerbung/Bewerbungsprojekte/3D-Carom-Billiards/Carom-Billiard-3D/Carom-Billiards-3D_Unity/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
  </Reference>
  <Reference Include="Unity.CollabProxy.Editor">
- <HintPath>D:/_Privat/Bewerbung/Bewerbungsprojekte/3D-Carom-Billiards/Carom Billiards 3D/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+ <HintPath>D:/_Privat/Bewerbung/Bewerbungsprojekte/3D-Carom-Billiards/Carom-Billiard-3D/Carom-Billiards-3D_Unity/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Rider.Editor">
- <HintPath>D:/_Privat/Bewerbung/Bewerbungsprojekte/3D-Carom-Billiards/Carom Billiards 3D/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+ <HintPath>D:/_Privat/Bewerbung/Bewerbungsprojekte/3D-Carom-Billiards/Carom-Billiard-3D/Carom-Billiards-3D_Unity/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro">
- <HintPath>D:/_Privat/Bewerbung/Bewerbungsprojekte/3D-Carom-Billiards/Carom Billiards 3D/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+ <HintPath>D:/_Privat/Bewerbung/Bewerbungsprojekte/3D-Carom-Billiards/Carom-Billiard-3D/Carom-Billiards-3D_Unity/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.UI">
- <HintPath>D:/_Privat/Bewerbung/Bewerbungsprojekte/3D-Carom-Billiards/Carom Billiards 3D/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+ <HintPath>D:/_Privat/Bewerbung/Bewerbungsprojekte/3D-Carom-Billiards/Carom-Billiard-3D/Carom-Billiards-3D_Unity/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine">
  <HintPath>D:/_Arbeit/Unity/Versions/2019.2.10f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>

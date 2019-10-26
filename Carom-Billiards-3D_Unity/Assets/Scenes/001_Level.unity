@@ -1130,7 +1130,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_AdditionalShaderChannelsFlag: 31
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -1171,9 +1171,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   replayButton: {fileID: 2024152929}
   line: {fileID: 1115461629}
-  replayObject: {fileID: 1705489482}
-  sliderObject: {fileID: 630100252}
-  sliderText: {fileID: 789147966}
+  isReplayDisplay: {fileID: 1705489482}
+  forceSliderElement: {fileID: 630100252}
+  scoreElement: {fileID: 480799284}
 --- !u!1 &171860343
 GameObject:
   m_ObjectHideFlags: 0
@@ -1638,7 +1638,7 @@ GameObject:
   m_Component:
   - component: {fileID: 322341648}
   m_Layer: 5
-  m_Name: Replay Element
+  m_Name: Replay Elements
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5733,7 +5733,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1705489483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6729,7 +6729,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2024152928
 RectTransform:
   m_ObjectHideFlags: 0

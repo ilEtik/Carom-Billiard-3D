@@ -15,15 +15,7 @@ namespace CaromBilliard
         private float CurForce
         {
             get { return curForce; }
-            set
-            {
-                if (value < minForce)
-                    curForce = minForce;
-                else if (value > maxForce)
-                    curForce = maxForce;
-                else
-                    curForce = value;
-            }
+            set { curForce = Mathf.Clamp(value, minForce, maxForce); }
         }
 
         public static event Action<float, float, float> OnChargeForce;
@@ -54,7 +46,7 @@ namespace CaromBilliard
             }
             else if (Input.GetKeyUp(inputKey))
             {
-                invoker.ExecuteCommand(new ShootBallCommand(this, CurForce, transform.position, transform.rotation));
+                invoker.AddCommand(new ShootBallCommand(this, ScoreSystem.Instance.CurShots, CurForce, transform.position, transform.rotation));
                 CurForce = 0;
 
                 if (OnApplyForce != null)

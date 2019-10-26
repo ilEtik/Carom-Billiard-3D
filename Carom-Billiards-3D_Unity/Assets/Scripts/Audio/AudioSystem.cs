@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Audio;
+﻿using UnityEngine;
 
 namespace CaromBilliard
 {
@@ -21,7 +18,7 @@ namespace CaromBilliard
 
         private void PlayHit(GameObject sourceObj, GameObject objectToHit)
         {
-            if (objectToHit.tag == "Ball")
+            if (objectToHit.tag == "Ball" || objectToHit.tag == "Player")
             {
                 var audio = objectToHit.GetComponent<AudioSource>();
 

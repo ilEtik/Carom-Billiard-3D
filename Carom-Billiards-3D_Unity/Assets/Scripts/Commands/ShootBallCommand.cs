@@ -8,7 +8,7 @@ namespace CaromBilliard
         private Quaternion PreRotation { get; set; }
         private float Force { get; set; }
 
-        public ShootBallCommand(BallMotor motor, float force, Vector3 prePos, Quaternion preRot) : base (motor)
+        public ShootBallCommand(BallMotor motor, int executeInd, float force, Vector3 prePos, Quaternion preRot) : base (motor, executeInd)
         {
             Force = force;
             PrePosition = prePos;

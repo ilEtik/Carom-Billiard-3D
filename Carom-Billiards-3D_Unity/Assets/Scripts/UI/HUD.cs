@@ -8,15 +8,18 @@ namespace CaromBilliard
     {
         public Button replayButton;
         public LineRenderer line;
-        public GameObject replayObject, sliderObject;
-        public TextMeshProUGUI sliderText;
+        public GameObject isReplayDisplay, forceSliderElement, scoreElement;
 
-        private Slider slider;
+        private TextMeshProUGUI sliderTutorialText;
+        private Slider forceSlider;
 
         private void Start()
         {
-            if (sliderObject != null)
-                slider = sliderObject.GetComponentInChildren<Slider>();
+            if (forceSliderElement != null)
+            {
+                forceSlider = forceSliderElement.GetComponentInChildren<Slider>();
+                sliderTutorialText = forceSliderElement.GetComponentInChildren<TextMeshProUGUI>();
+            }
             RegisterEvents();
         }
 
@@ -28,28 +31,29 @@ namespace CaromBilliard
             BallsManager.Instance.OnMoving += SetReplayButton;
             BallsManager.Instance.OnMoving += SetLine;
             IngameScoreSystem.Instance.OnGameOver += () => Destroy(gameObject);
-            ReplaySystem.OnReplayStart += SetReplayOverlay;
-            ReplaySystem.OnReplayStop += SetReplayOverlay;
+            ReplaySystem.OnReplayStart += ShowReplayOverlay;
+            ReplaySystem.OnReplayStop += HideReplayOverlay;
+            CommandInvoker.OnHasCommands += (hasCommand) => replayButton.gameObject.SetActive(hasCommand);
         }
 
         void SetSlider(float value)
         {
-            if (slider != null)
-                slider.value = value;
-            if (sliderText != null)
-                sliderText.text = "Hold Space";
+            if (forceSlider != null)
+                forceSlider.value = value;
+            if (sliderTutorialText != null)
+                sliderTutorialText.text = "Hold Space";
         }
 
         void SetSlider(float value, float minValue, float maxValue)
         {
-            if (slider != null)
+            if (forceSlider != null)
             {
-                slider.value = value;
-                slider.minValue = minValue;
-                slider.maxValue = maxValue;
+                forceSlider.value = value;
+                forceSlider.minValue = minValue;
+                forceSlider.maxValue = maxValue;
             }
-            if(sliderText != null)
-                sliderText.text = "Release Space";
+            if (sliderTutorialText != null)
+                sliderTutorialText.text = "Release Space";
         }
 
         void SetReplayButton(bool isMoving)
@@ -73,16 +77,28 @@ namespace CaromBilliard
             }
         }
 
-        void SetReplayOverlay(bool isShowing)
+        void ShowReplayOverlay()
         {
-            if (slider != null)
-                slider.gameObject.SetActive(!isShowing);
-            if (replayObject != null)
-                replayObject.SetActive(isShowing);
+            SetReplayOverlay(true);
+        }
+
+        void HideReplayOverlay()
+        {
+            SetReplayOverlay(false);
+        }
+
+        void SetReplayOverlay(bool isReplay)
+        {
+            if (forceSlider != null)
+                forceSlider.gameObject.SetActive(!isReplay);
+            if (isReplayDisplay != null)
+                isReplayDisplay.SetActive(isReplay);
             if (replayButton != null)
-                replayButton.gameObject.SetActive(!isShowing);
-            if (sliderObject != null)
-                sliderObject.SetActive(!isShowing);
+                replayButton.gameObject.SetActive(!isReplay);
+            if (forceSliderElement != null)
+                forceSliderElement.SetActive(!isReplay);
+            if (scoreElement != null)
+                scoreElement.SetActive(!isReplay);
         }
     }
 }

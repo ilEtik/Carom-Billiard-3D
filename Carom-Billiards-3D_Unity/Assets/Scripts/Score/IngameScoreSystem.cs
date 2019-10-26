@@ -9,14 +9,14 @@ namespace CaromBilliard
         private void Start()
         {
             Stats = new PlayerStats();
-            RegisterEvents(true);
+            RegisterEvents();
             ReplaySystem.OnReplayStart += UnregisterEvents;
-            ReplaySystem.OnReplayStart += (a) => useTimer = !a;
+            ReplaySystem.OnReplayStart += () => useTimer = false;
             ReplaySystem.OnReplayStop += RegisterEvents;
-            ReplaySystem.OnReplayStop += (a) => useTimer = !a;
+            ReplaySystem.OnReplayStop += () => useTimer = true;
         }
 
-        void RegisterEvents(bool e)
+        void RegisterEvents()
         {
             PlayerController.OnApplyForce += ApplyShots;
             BallsManager.Instance.OnMoving += CheckMove;
@@ -26,7 +26,7 @@ namespace CaromBilliard
                 BallsManager.Instance.Balls[i].OnHit += GetPoints;
         }
 
-        void UnregisterEvents(bool e)
+        void UnregisterEvents()
         {
             PlayerController.OnApplyForce -= ApplyShots;
             BallsManager.Instance.OnMoving -= CheckMove;

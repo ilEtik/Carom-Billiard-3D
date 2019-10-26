@@ -8,8 +8,8 @@ namespace CaromBilliard
     {
         private CommandInvoker invoker;
 
-        public static event Action<bool> OnReplayStart;
-        public static event Action<bool> OnReplayStop;
+        public static event Action OnReplayStart;
+        public static event Action OnReplayStop;
 
         private void Start()
         {
@@ -22,7 +22,7 @@ namespace CaromBilliard
             {
                 StopAllCoroutines();
                 BallsManager.Instance.OnMoving -= StopReplay;
-                OnReplayStop(false);
+                OnReplayStop();
             }
         }
 
@@ -33,18 +33,19 @@ namespace CaromBilliard
 
         IEnumerator Replay()
         {
-            if(OnReplayStart != null)
-                OnReplayStart(true);
+            if (OnReplayStart != null)
+                OnReplayStart();
 
-            for (int i = invoker.commands.Count - 1; i >= 0; i--)
+            for (int i = invoker.UndoTail; i > -1; i = invoker.UndoTail)
             {
                 invoker.UndoCommand();
 
                 if (invoker.commands[i].GetType() == typeof(ShootBallCommand))
+                {
+                    invoker.RedoCommand();
                     break;
+                }
             }
-
-            invoker.RedoCommand();
 
             yield return new WaitForSeconds(.1f);
 
