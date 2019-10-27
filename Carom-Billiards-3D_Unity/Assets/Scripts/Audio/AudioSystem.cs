@@ -2,18 +2,29 @@
 
 namespace CaromBilliard
 {
-    public class AudioSystem : MonoBehaviour
+    public class AudioSystem : MonoBehaviour, IServiceLocator
     {
+        void IServiceLocator.ProvideService() { }
+
+        void IServiceLocator.GetService()
+        {
+            playerController = ServiceLocator.GetService<PlayerController>();
+            ballsManager = ServiceLocator.GetService<BallsManager>();
+        }
+
         public AudioClip ballHitClip, tableHitClip;
 
         private float volumeScale;
 
+        private PlayerController playerController;
+        private BallsManager ballsManager;
+
         private void Start()
         {
-            PlayerController.OnApplyForce += (a) => volumeScale = a;
+            playerController.OnApplyForce += (a) => volumeScale = a;
 
-            for (int i = 0; i < BallsManager.Instance.Balls.Length; i++)
-                BallsManager.Instance.Balls[i].OnHit += PlayHit;
+            for (int i = 0; i < ballsManager.Balls.Length; i++)
+                ballsManager.Balls[i].OnHit += PlayHit;
         }
 
         private void PlayHit(GameObject sourceObj, GameObject objectToHit)

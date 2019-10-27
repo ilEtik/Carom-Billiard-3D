@@ -4,24 +4,31 @@ using System;
 
 namespace CaromBilliard
 {
-    public class ReplaySystem : MonoBehaviour
+    public class ReplaySystem : MonoBehaviour, IServiceLocator
     {
-        private CommandInvoker invoker;
-
-        public static event Action OnReplayStart;
-        public static event Action OnReplayStop;
-
-        private void Start()
+        void IServiceLocator.ProvideService()
         {
-            invoker = FindObjectOfType<CommandInvoker>();
+            ServiceLocator.ProvideService(this);
         }
+
+        private CommandInvoker invoker;
+        private BallsManager ballsManager;
+
+        void IServiceLocator.GetService()
+        {
+            invoker = ServiceLocator.GetService<CommandInvoker>();
+            ballsManager = ServiceLocator.GetService<BallsManager>();
+        }
+
+        public event Action OnReplayStart;
+        public event Action OnReplayStop;
 
         void StopReplay(bool isMoving)
         {
             if (!isMoving)
             {
                 StopAllCoroutines();
-                BallsManager.Instance.OnMoving -= StopReplay;
+                ballsManager.OnMoving -= StopReplay;
                 OnReplayStop();
             }
         }
@@ -49,7 +56,7 @@ namespace CaromBilliard
 
             yield return new WaitForSeconds(.1f);
 
-            BallsManager.Instance.OnMoving += StopReplay;
+            ballsManager.OnMoving += StopReplay;
         }
     }
 }

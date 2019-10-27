@@ -5,19 +5,27 @@ namespace CaromBilliard
 {
     public class BallMotor : Ball
     {
+        private BallsManager ballsManager;
+
+        public override void GetService()
+        {
+            base.GetService();
+            ballsManager = ServiceLocator.GetService<BallsManager>();
+        }
+
         public GameObject Cam { get; private set; }
 
         private Vector3 camRot = Vector3.zero;
         private Vector3 direction = Vector3.zero;
         public bool isMoving;
 
-        public static event Action<Vector3[]> OnAiming;
+        public event Action<Vector3[]> OnAiming;
 
-        public override void Init()
+        internal override void InitializeStart()
         {
-            base.Init();
-            BallsManager.Instance.OnMoving += (a) => isMoving = a;
+            base.InitializeStart();
             Cam = GameObject.FindGameObjectWithTag("MainCamera");
+            ballsManager.OnMoving += (a) => isMoving = a;
         }
 
         public override void ShootBall(float force)
@@ -53,7 +61,7 @@ namespace CaromBilliard
         private Vector3[] points()
         {
             if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 5, 1, QueryTriggerInteraction.Collide))
-                return new Vector3[2] { transform.position, hit.point};
+                return new Vector3[2] { transform.position, hit.point };
 
             return new Vector3[2] { transform.position, transform.forward * 5 + transform.position };
         }

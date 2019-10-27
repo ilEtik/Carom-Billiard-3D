@@ -5,18 +5,18 @@ using System;
 
 namespace CaromBilliard
 {
-    public class BallsManager : MonoBehaviour
+    public class BallsManager : MonoBehaviour, IServiceLocator
     {
-        public static BallsManager Instance;
+        void IServiceLocator.ProvideService()
+        {
+            ServiceLocator.ProvideService(this);
+        }
+
+        void IServiceLocator.GetService() { }
 
         private void Awake()
         {
-            if (Instance == null)
-                Instance = this;
-            else
-                Destroy(gameObject);
-
-            Balls = FindObjectsOfType<Ball>();            
+            Balls = FindObjectsOfType<Ball>();
         }
 
         public Ball[] Balls { get; private set; } = new Ball[3];
@@ -32,7 +32,7 @@ namespace CaromBilliard
 
         void CheckBallsMoving()
         {
-            if(OnMoving == null)
+            if (OnMoving == null)
                 return;
 
             for (int i = 0; i < Balls.Length; i++)

@@ -4,8 +4,20 @@ using System;
 
 namespace CaromBilliard
 {
-    public class CommandInvoker : MonoBehaviour
+    public class CommandInvoker : MonoBehaviour, IServiceLocator
     {
+        void IServiceLocator.ProvideService()
+        {
+            ServiceLocator.ProvideService(this);
+        }
+        
+        private ReplaySystem replaySystem;
+
+        void IServiceLocator.GetService()
+        {
+            replaySystem = ServiceLocator.GetService<ReplaySystem>();
+        }
+
         public const int MaxCommands = 16;
         public Command[] commands = new Command[MaxCommands];
         private int head = 0;
@@ -26,7 +38,7 @@ namespace CaromBilliard
 
         private int _undoHead;
         public int UndoHead
-         {
+        {
             get { return _undoHead; }
             set
             {
@@ -37,13 +49,17 @@ namespace CaromBilliard
             }
         }
 
-        public static event Action<bool> OnHasCommands;
+        public event Action<bool> OnHasCommands;
+
 
         private void Start()
         {
-            OnHasCommands(false);
-            ReplaySystem.OnReplayStop += () => UndoTail = (tail - 1) % MaxCommands;
-            ReplaySystem.OnReplayStart += () => UndoHead = head;
+            if (OnHasCommands != null)
+                OnHasCommands(false);
+                
+            replaySystem.OnReplayStop += () => UndoTail = (tail - 1) % MaxCommands;
+            replaySystem.OnReplayStart += () => UndoHead = head;
+            
         }
 
         private void Update()

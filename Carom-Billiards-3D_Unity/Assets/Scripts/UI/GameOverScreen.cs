@@ -1,22 +1,30 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace CaromBilliard
 {
-    public class GameOverScreen : MonoBehaviour
+    public class GameOverScreen : MonoBehaviour, IServiceLocator
     {
+        void IServiceLocator.ProvideService() { }
+
+        private IngameScoreSystem scoreSystem;
+
+        void IServiceLocator.GetService()
+        {
+            scoreSystem = ServiceLocator.GetService<IngameScoreSystem>();
+        }
+
         public GameObject gameOverScreen;
 
-        private void Start() 
+        private void Start()
         {
-            IngameScoreSystem.Instance.OnGameOver += GameOver;
+            gameOverScreen.SetActive(false);
+            scoreSystem.OnGameOver += GameOver;
         }
 
         void GameOver()
         {
             gameOverScreen.SetActive(true);
-            ScoreSystem.Instance.Invoke("LoadStats", .1f);
+            scoreSystem.Invoke("LoadStats", .1f);
         }
     }
 }

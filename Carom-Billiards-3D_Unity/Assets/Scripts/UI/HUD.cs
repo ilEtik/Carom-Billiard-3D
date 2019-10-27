@@ -4,8 +4,25 @@ using TMPro;
 
 namespace CaromBilliard
 {
-    public class HUD : MonoBehaviour
+    public class HUD : MonoBehaviour, IServiceLocator
     {
+        void IServiceLocator.ProvideService() { }
+
+        private CommandInvoker invoker;
+        private IngameScoreSystem scoreSystem;
+        private PlayerController playerController;
+        private BallsManager ballsManager;
+        private ReplaySystem replaySystem;
+
+        void IServiceLocator.GetService()
+        {
+            invoker = ServiceLocator.GetService<CommandInvoker>();
+            scoreSystem = ServiceLocator.GetService<IngameScoreSystem>();
+            playerController = ServiceLocator.GetService<PlayerController>();
+            ballsManager = ServiceLocator.GetService<BallsManager>();
+            replaySystem = ServiceLocator.GetService<ReplaySystem>();
+        }
+
         public Button replayButton;
         public LineRenderer line;
         public GameObject isReplayDisplay, forceSliderElement, scoreElement;
@@ -20,20 +37,21 @@ namespace CaromBilliard
                 forceSlider = forceSliderElement.GetComponentInChildren<Slider>();
                 sliderTutorialText = forceSliderElement.GetComponentInChildren<TextMeshProUGUI>();
             }
+
             RegisterEvents();
         }
 
         void RegisterEvents()
         {
-            PlayerController.OnChargeForce += SetSlider;
-            PlayerController.OnApplyForce += SetSlider;
-            PlayerController.OnAiming += SetLine;
-            BallsManager.Instance.OnMoving += SetReplayButton;
-            BallsManager.Instance.OnMoving += SetLine;
-            IngameScoreSystem.Instance.OnGameOver += () => Destroy(gameObject);
-            ReplaySystem.OnReplayStart += ShowReplayOverlay;
-            ReplaySystem.OnReplayStop += HideReplayOverlay;
-            CommandInvoker.OnHasCommands += (hasCommand) => replayButton.gameObject.SetActive(hasCommand);
+            invoker.OnHasCommands += SetReplayButtonActive;
+            playerController.OnChargeForce += SetSlider;
+            playerController.OnApplyForce += SetSlider;
+            playerController.OnAiming += SetLine;
+            ballsManager.OnMoving += SetReplayButton;
+            ballsManager.OnMoving += SetLine;
+            replaySystem.OnReplayStart += ShowReplayOverlay;
+            replaySystem.OnReplayStop += HideReplayOverlay;
+            scoreSystem.OnGameOver += GameOver;
         }
 
         void SetSlider(float value)
@@ -54,6 +72,12 @@ namespace CaromBilliard
             }
             if (sliderTutorialText != null)
                 sliderTutorialText.text = "Release Space";
+        }
+
+        void SetReplayButtonActive(bool canReplay)
+        {
+            if (replayButton != null)
+                replayButton.gameObject.SetActive(canReplay);
         }
 
         void SetReplayButton(bool isMoving)
@@ -99,6 +123,11 @@ namespace CaromBilliard
                 forceSliderElement.SetActive(!isReplay);
             if (scoreElement != null)
                 scoreElement.SetActive(!isReplay);
+        }
+
+        void GameOver()
+        {
+            gameObject.SetActive(false);
         }
     }
 }

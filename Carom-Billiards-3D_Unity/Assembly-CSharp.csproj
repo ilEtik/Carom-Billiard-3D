@@ -59,8 +59,10 @@
      <Compile Include="Assets\Scripts\Score\PlayerStats.cs" />
      <Compile Include="Assets\Scripts\Score\ScoreSystem.cs" />
      <Compile Include="Assets\Scripts\Score\StatsLoader.cs" />
+     <Compile Include="Assets\Scripts\System\IServiceLocator.cs" />
      <Compile Include="Assets\Scripts\System\ReplaySystem.cs" />
      <Compile Include="Assets\Scripts\System\SceneLoader.cs" />
+     <Compile Include="Assets\Scripts\System\ServiceLocator.cs" />
      <Compile Include="Assets\Scripts\UI\GameOverScreen.cs" />
      <Compile Include="Assets\Scripts\UI\HUD.cs" />
      <Compile Include="Assets\Scripts\UI\ScoreBoard.cs" />

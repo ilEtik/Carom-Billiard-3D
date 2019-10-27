@@ -1,12 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 
 namespace CaromBilliard
 {
     public class PlayerController : BallMotor
     {
+        public override void ProvideService()
+        {
+            ServiceLocator.ProvideService(this);
+        }
+
         public float minForce = 1f;
         public float maxForce = 20f;
         public float forceMultiplier = 5f;
@@ -18,8 +21,8 @@ namespace CaromBilliard
             set { curForce = Mathf.Clamp(value, minForce, maxForce); }
         }
 
-        public static event Action<float, float, float> OnChargeForce;
-        public static event Action<float> OnApplyForce;
+        public event Action<float, float, float> OnChargeForce;
+        public event Action<float> OnApplyForce;
 
         private void Update()
         {
@@ -46,7 +49,7 @@ namespace CaromBilliard
             }
             else if (Input.GetKeyUp(inputKey))
             {
-                invoker.AddCommand(new ShootBallCommand(this, ScoreSystem.Instance.CurShots, CurForce, transform.position, transform.rotation));
+                invoker.AddCommand(new ShootBallCommand(this, scoreSystem.CurShots, CurForce, transform.position, transform.rotation));
                 CurForce = 0;
 
                 if (OnApplyForce != null)

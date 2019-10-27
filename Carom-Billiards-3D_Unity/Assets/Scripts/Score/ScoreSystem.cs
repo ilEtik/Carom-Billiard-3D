@@ -3,17 +3,14 @@ using System;
 
 namespace CaromBilliard
 {
-    public class ScoreSystem : MonoBehaviour
+    public class ScoreSystem : MonoBehaviour, IServiceLocator
     {
-        public static ScoreSystem Instance;
-
-        private void Awake()
+        public virtual void ProvideService()
         {
-            if (Instance == null)
-                Instance = this;
-            else
-                Destroy(this);
+            ServiceLocator.ProvideService(this);
         }
+
+        public virtual void GetService() { }
 
         public int scoreToWin = 3;
         public PlayerStats Stats;
@@ -75,7 +72,7 @@ namespace CaromBilliard
         public void LoadStats()
         {
             StatsLoader.LoadingStats("Stats", ref Stats);
-            
+
             if (OnStatsLoaded != null)
                 OnStatsLoaded(Stats);
         }

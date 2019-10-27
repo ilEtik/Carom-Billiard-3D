@@ -3,11 +3,23 @@ using System;
 
 namespace CaromBilliard
 {
-    public class Ball : MonoBehaviour
+    public class Ball : MonoBehaviour, IServiceLocator
     {
+        public virtual void ProvideService() { }
+
+        internal CommandInvoker invoker;
+        internal IngameScoreSystem scoreSystem;
+        private PlayerController playerController;
+
+        public virtual void GetService()
+        {
+            playerController = ServiceLocator.GetService<PlayerController>();
+            invoker = ServiceLocator.GetService<CommandInvoker>();
+            scoreSystem = ServiceLocator.GetService<IngameScoreSystem>();
+        }
+
         [HideInInspector]
         public Rigidbody BallRb;
-        public CommandInvoker invoker;
 
         public bool IsMoving { get { return BallRb.velocity.magnitude > .1f; } }
 
@@ -17,15 +29,14 @@ namespace CaromBilliard
 
         private void Start()
         {
-            Init();
+            InitializeStart();
+            scoreSystem.OnGameOver += GameOver;
         }
 
-        public virtual void Init()
+        internal virtual void InitializeStart()
         {
             BallRb = GetComponent<Rigidbody>();
-            invoker = FindObjectOfType<CommandInvoker>();
-            IngameScoreSystem.Instance.OnGameOver += GameOver;
-            PlayerController.OnApplyForce += (a) => lastShot = ScoreSystem.Instance.CurShots + 1;
+            playerController.OnApplyForce += (a) => lastShot = scoreSystem.CurShots + 1;
         }
 
         public virtual void ShootBall(float force) { }

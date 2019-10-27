@@ -3,14 +3,23 @@ using TMPro;
 
 namespace CaromBilliard
 {
-    public class ScoreBoard : MonoBehaviour
-    {
+    public class ScoreBoard : MonoBehaviour, IServiceLocator
+    {        
+        void IServiceLocator.ProvideService() { }
+
+        private ScoreSystem scoreSystem;
+
+        public void GetService()
+        {
+            scoreSystem = ServiceLocator.GetService<ScoreSystem>();
+        }
+
         public TextMeshProUGUI nameValue, shotsValue, scoreValue, timeMinValue, timeSecValue;
 
         private void Start()
         {
-            ScoreSystem.Instance.OnStatsChanged += SetScoreBoard;
-            ScoreSystem.Instance.OnStatsLoaded += SetScoreBoard;
+            scoreSystem.OnStatsChanged += SetScoreBoard;
+            scoreSystem.OnStatsLoaded += SetScoreBoard;
         }
 
         public void SetScoreBoard(PlayerStats stats)
@@ -24,7 +33,7 @@ namespace CaromBilliard
             if (timeMinValue != null)
                 timeMinValue.text = stats.TimeMin.ToString("00.");
             if (timeSecValue != null)
-                timeSecValue.text = stats.TimeSec.ToString("00."); 
+                timeSecValue.text = stats.TimeSec.ToString("00.");
         }
     }
 }
