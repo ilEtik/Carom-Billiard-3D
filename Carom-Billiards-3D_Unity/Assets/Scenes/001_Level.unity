@@ -3013,7 +3013,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreToWin: 3
   Stats:
-    PlayerName: new Player
     Score: 0
     Shots: 0
     TimeMin: 0
