@@ -187,6 +187,7 @@ GameObject:
   - component: {fileID: 875915767491804983}
   - component: {fileID: 4632961365265686592}
   - component: {fileID: 4707781976420257209}
+  - component: {fileID: 5453464196129683479}
   m_Layer: 8
   m_Name: Player Bal
   m_TagString: Player
@@ -225,7 +226,7 @@ MonoBehaviour:
   BallRb: {fileID: 0}
   isMoving: 0
   minForce: 5
-  maxForce: 25
+  maxForce: 20
   forceMultiplier: 10
 --- !u!54 &4632961365265686592
 Rigidbody:
@@ -340,3 +341,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!135 &5453464196129683479
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4632961365265686594}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}

@@ -427,7 +427,7 @@ ScriptsOnlyBuild:
     className: ControlPlayableAsset
   - hash:
       serializedVersion: 2
-      Hash: 783f4ae315f374a70a65b8561d18b47f
+      Hash: a413447c0eded474c2d384d5fb176f77
     assemblyName: Assembly-CSharp.dll
     namespaceName: CaromBilliard
     className: Ball
@@ -451,7 +451,7 @@ ScriptsOnlyBuild:
     className: Selectable
   - hash:
       serializedVersion: 2
-      Hash: 6a11bafe3cdfd069c412e90e15dfc229
+      Hash: dfc46d032bdbf3e52b416754665c9a69
     assemblyName: Assembly-CSharp.dll
     namespaceName: CaromBilliard
     className: PlayerController
@@ -565,7 +565,7 @@ ScriptsOnlyBuild:
     className: Physics2DRaycaster
   - hash:
       serializedVersion: 2
-      Hash: 27d28530ab2f6b712ffc26d0b1cfcb35
+      Hash: c8baba5e88e99a4d4e664a097b4ea2cf
     assemblyName: Assembly-CSharp.dll
     namespaceName: CaromBilliard
     className: HUD
@@ -607,7 +607,7 @@ ScriptsOnlyBuild:
     className: VolumeSlider
   - hash:
       serializedVersion: 2
-      Hash: 6239da02f0d0c58d8a206cfe3fcdc333
+      Hash: edfebf428a4ca379327674a24d866ab4
     assemblyName: Assembly-CSharp.dll
     namespaceName: CaromBilliard
     className: IngameScoreSystem
@@ -631,7 +631,7 @@ ScriptsOnlyBuild:
     className: ReplaySystem
   - hash:
       serializedVersion: 2
-      Hash: c50f56b38372be0ce485c9587124daf3
+      Hash: e76226806a48aa9ccdc99fd045bd23a6
     assemblyName: Assembly-CSharp.dll
     namespaceName: CaromBilliard
     className: BallMotor
@@ -673,13 +673,13 @@ ScriptsOnlyBuild:
     className: BaseInput
   - hash:
       serializedVersion: 2
-      Hash: 6239da02f0d0c58d8a206cfe3fcdc333
+      Hash: edfebf428a4ca379327674a24d866ab4
     assemblyName: Assembly-CSharp.dll
     namespaceName: CaromBilliard
     className: MainMenuScore
   - hash:
       serializedVersion: 2
-      Hash: 6239da02f0d0c58d8a206cfe3fcdc333
+      Hash: edfebf428a4ca379327674a24d866ab4
     assemblyName: Assembly-CSharp.dll
     namespaceName: CaromBilliard
     className: ScoreSystem
