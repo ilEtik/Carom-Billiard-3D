@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace CaromBilliard
 {
+    /// <summary>
+    /// Class for locating all services that are needed from different classes.
+    /// </summary>
     public class ServiceLocator : MonoBehaviour
     {
         private static Dictionary<object, object> serviceDictionary = new Dictionary<object, object>();
@@ -20,6 +23,11 @@ namespace CaromBilliard
                 service.GetService();
         }
 
+        /// <summary>
+        /// Adds a new service.
+        /// </summary>
+        /// <param name="service"> The Name of the service. </param>
+        /// <typeparam name="T"> The Service itself. </typeparam>
         public static void ProvideService<T>(T service)
         {
             if (serviceDictionary.ContainsKey(typeof(T)))
@@ -27,6 +35,11 @@ namespace CaromBilliard
             serviceDictionary.Add(typeof(T), service);
         }
 
+        /// <summary>
+        /// Receive a service.
+        /// </summary>
+        /// <typeparam name="T"> The service that is needed. </typeparam>
+        /// <returns> Returns the Service that is needed. </returns>
         public static T GetService<T>()
         {
             if (serviceDictionary.ContainsKey(typeof(T)))

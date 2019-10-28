@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace CaromBilliard
 {
+    /// <summary>
+    /// Command that shoots the ball of the player.
+    /// </summary>
     public class ShootBallCommand : Command
     {
         private Vector3 PrePosition { get; set; }

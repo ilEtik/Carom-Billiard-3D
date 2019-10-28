@@ -3,6 +3,9 @@ using System;
 
 namespace CaromBilliard
 {
+    /// <summary>
+    /// Motor for the ball that the Player can move.
+    /// </summary>
     public class BallMotor : Ball
     {
         private BallsManager ballsManager;
@@ -13,9 +16,7 @@ namespace CaromBilliard
             ballsManager = ServiceLocator.GetService<BallsManager>();
         }
 
-        public GameObject Cam { get; private set; }
-
-        private Vector3 camRot = Vector3.zero;
+        private Vector3 ballRot = Vector3.zero;
         private Vector3 direction = Vector3.zero;
         public bool isMoving;
 
@@ -24,7 +25,6 @@ namespace CaromBilliard
         internal override void InitializeStart()
         {
             base.InitializeStart();
-            Cam = GameObject.FindGameObjectWithTag("MainCamera");
             ballsManager.OnMoving += (a) => isMoving = a;
         }
 
@@ -34,9 +34,13 @@ namespace CaromBilliard
                 BallRb.AddForce(transform.forward * force, ForceMode.Impulse);
         }
 
-        public void RotateCam(float rotationValueY)
+        /// <summary>
+        /// Sets the value of how much the ball should be rotated
+        /// </summary>
+        /// <param name="rotationValueY"> How much the ball should be rotated. </param>
+        public void RotateBall(float rotationValueY)
         {
-            camRot.y = rotationValueY;
+            ballRot.y = rotationValueY;
         }
 
         private void FixedUpdate()
@@ -44,20 +48,21 @@ namespace CaromBilliard
             PerformRotation();
         }
 
+        /// <summary>
+        /// Rotate the ball in the direction where the ball should be shooted.
+        /// </summary>
         private void PerformRotation()
         {
-            if (Cam == null)
-            {
-                Debug.LogError("Camera is null");
-                return;
-            }
-
             if (!isMoving && OnAiming != null)
                 OnAiming(points());
 
-            transform.Rotate(camRot, Space.Self);
+            transform.Rotate(ballRot, Space.Self);
         }
 
+        /// <summary>
+        /// The positions for displaying the shooting direction
+        /// </summary>
+        /// <returns> Vector3 array that stores the shooting direction positions. </returns>
         private Vector3[] points()
         {
             if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 5, 1, QueryTriggerInteraction.Collide))

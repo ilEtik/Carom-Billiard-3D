@@ -3,6 +3,9 @@ using System;
 
 namespace CaromBilliard
 {
+    /// <summary>
+    /// Class for the player so that he can controll one ball.
+    /// </summary>
     public class PlayerController : BallMotor
     {
         public override void ProvideService()
@@ -30,11 +33,19 @@ namespace CaromBilliard
             Charging(KeyCode.Space);
         }
 
+        /// <summary>
+        /// Checks the mouse axis value to rotate the ball.
+        /// </summary>
+        /// <param name="axisName"> The axis on wich the player can rotate. </param>
         void GetMouse(string axisName)
         {
-            RotateCam(Input.GetAxisRaw(axisName));
+            RotateBall(Input.GetAxisRaw(axisName));
         }
 
+        /// <summary>
+        /// Let the player charge the force for shooting the ball.
+        /// </summary>
+        /// <param name="inputKey"> The Key to charge the force. </param>
         void Charging(KeyCode inputKey)
         {
             if (isMoving)

@@ -4,6 +4,9 @@ using TMPro;
 
 namespace CaromBilliard
 {
+    /// <summary>
+    /// Controlls the head up display.
+    /// </summary>
     public class HUD : MonoBehaviour, IServiceLocator
     {
         void IServiceLocator.ProvideService() { }
@@ -41,6 +44,9 @@ namespace CaromBilliard
             RegisterEvents();
         }
 
+        /// <summary>
+        /// Register all events so that the HUD can display everything.
+        /// </summary>
         void RegisterEvents()
         {
             invoker.OnHasCommands += SetReplayButtonActive;
@@ -54,6 +60,10 @@ namespace CaromBilliard
             scoreSystem.OnGameOver += GameOver;
         }
 
+        /// <summary>
+        /// Sets the value of the slider when the player ball was shooted.
+        /// </summary>
+        /// <param name="value"> Force of the player ball. </param>
         void SetSlider(float value)
         {
             if (forceSlider != null)
@@ -62,6 +72,12 @@ namespace CaromBilliard
                 sliderTutorialText.text = "Hold Space";
         }
 
+        /// <summary>
+        /// Sets the value of the slider while the player is charging the force.
+        /// </summary>
+        /// <param name="value"> The force value that the slider should display. </param>
+        /// <param name="minValue"> The minimum value of the slider. </param>
+        /// <param name="maxValue"> The maximum value of the slider. </param>
         void SetSlider(float value, float minValue, float maxValue)
         {
             if (forceSlider != null)
@@ -74,24 +90,40 @@ namespace CaromBilliard
                 sliderTutorialText.text = "Release Space";
         }
 
+        /// <summary>
+        /// Set the active mode of the replay button gameobject.
+        /// </summary>
+        /// <param name="canReplay"> Is there anything to replay? </param>
         void SetReplayButtonActive(bool canReplay)
         {
             if (replayButton != null)
                 replayButton.gameObject.SetActive(canReplay);
         }
 
+        /// <summary>
+        /// Sets the interactivity of the replay button.
+        /// </summary>
+        /// <param name="isMoving"> Are the balls moving? </param>
         void SetReplayButton(bool isMoving)
         {
             if (replayButton != null)
                 replayButton.interactable = !isMoving;
         }
 
+        /// <summary>
+        /// Show/Hide the line for displaying the players shooting direction.
+        /// </summary>
+        /// <param name="isMoving"> Are the balls moving? </param>
         void SetLine(bool isMoving)
         {
             if (line != null)
                 line.enabled = !isMoving;
         }
 
+        /// <summary>
+        /// Sets the positions of the line for displaying the players shooting direction.
+        /// </summary>
+        /// <param name="points"> The positions of the line. </param>
         void SetLine(params Vector3[] points)
         {
             if (line != null)
@@ -101,16 +133,26 @@ namespace CaromBilliard
             }
         }
 
+        /// <summary>
+        /// Display the replay overlay.
+        /// </summary>
         void ShowReplayOverlay()
         {
             SetReplayOverlay(true);
         }
 
+        /// <summary>
+        /// Hide the replay overlay.
+        /// </summary>
         void HideReplayOverlay()
         {
             SetReplayOverlay(false);
         }
 
+        /// <summary>
+        /// Sets the replay overlay.
+        /// </summary>
+        /// <param name="isReplay"> Is currently a replay playing? </param>
         void SetReplayOverlay(bool isReplay)
         {
             if (forceSlider != null)
@@ -125,6 +167,9 @@ namespace CaromBilliard
                 scoreElement.SetActive(!isReplay);
         }
 
+        /// <summary>
+        /// Called when the game is over.
+        /// </summary>
         void GameOver()
         {
             gameObject.SetActive(false);

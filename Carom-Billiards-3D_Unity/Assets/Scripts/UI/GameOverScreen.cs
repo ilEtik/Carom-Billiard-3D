@@ -2,6 +2,9 @@
 
 namespace CaromBilliard
 {
+    /// <summary>
+    /// Controlls the game over screen.
+    /// </summary>
     public class GameOverScreen : MonoBehaviour, IServiceLocator
     {
         void IServiceLocator.ProvideService() { }
@@ -21,6 +24,9 @@ namespace CaromBilliard
             scoreSystem.OnGameOver += GameOver;
         }
 
+        /// <summary>
+        /// called when the game is over.
+        /// </summary>
         void GameOver()
         {
             gameOverScreen.SetActive(true);

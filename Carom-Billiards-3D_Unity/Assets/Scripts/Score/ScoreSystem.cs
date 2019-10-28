@@ -3,6 +3,9 @@ using System;
 
 namespace CaromBilliard
 {
+    /// <summary>
+    /// Base class for all score systems.
+    /// </summary>
     public class ScoreSystem : MonoBehaviour, IServiceLocator
     {
         public virtual void ProvideService()
@@ -64,11 +67,17 @@ namespace CaromBilliard
             }
         }
 
+        /// <summary>
+        /// Saves the stats to The json file.
+        /// </summary>
         public void SaveStats()
         {
             StatsLoader.SavingStats("Stats", Stats);
         }
 
+        /// <summary>
+        /// Loads the stats from the json file.
+        /// </summary>
         public void LoadStats()
         {
             StatsLoader.LoadingStats("Stats", ref Stats);

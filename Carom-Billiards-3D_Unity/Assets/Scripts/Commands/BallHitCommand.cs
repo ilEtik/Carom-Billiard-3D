@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace CaromBilliard
 {
+    /// <summary>
+    /// Command that is called when a ball was hit.
+    /// </summary>
     public class BallHitCommand : Command
     {
         private Vector3 PrePosition { get; set; }

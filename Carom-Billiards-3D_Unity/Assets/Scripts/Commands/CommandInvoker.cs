@@ -4,6 +4,9 @@ using System;
 
 namespace CaromBilliard
 {
+    /// <summary>
+    /// Calls all commands.
+    /// </summary>
     public class CommandInvoker : MonoBehaviour, IServiceLocator
     {
         void IServiceLocator.ProvideService()
@@ -67,6 +70,9 @@ namespace CaromBilliard
             ExecuteCommands();
         }
 
+        /// <summary>
+        /// Executes all command insider of the commands array.
+        /// </summary>
         void ExecuteCommands()
         {
             if (head == tail)
@@ -77,6 +83,10 @@ namespace CaromBilliard
             UndoHead = head;
         }
 
+        /// <summary>
+        /// Adds new command to the commands array.
+        /// </summary>
+        /// <param name="command"> the command that should be executed. </param>
         public void AddCommand(Command command)
         {
             commands[tail] = command;
@@ -85,6 +95,9 @@ namespace CaromBilliard
             OnHasCommands(true);
         }
 
+        /// <summary>
+        /// Undo an command.
+        /// </summary>
         public void UndoCommand()
         {
             commands[UndoTail].Undo();
@@ -92,6 +105,9 @@ namespace CaromBilliard
             UndoHead = (UndoHead - 1) % MaxCommands;
         }
 
+        /// <summary>
+        /// Redo the last command that was undid.
+        /// </summary>
         public void RedoCommand()
         {
             commands[UndoHead].Execute();

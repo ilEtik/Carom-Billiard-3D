@@ -5,6 +5,9 @@ using System;
 
 namespace CaromBilliard
 {
+    /// <summary>
+    /// Class for checking the state of all balls.
+    /// </summary>
     public class BallsManager : MonoBehaviour, IServiceLocator
     {
         void IServiceLocator.ProvideService()
@@ -30,6 +33,9 @@ namespace CaromBilliard
             CheckBallsMoving();
         }
 
+        /// <summary>
+        /// Checks if one of the balls is moving.
+        /// </summary>
         void CheckBallsMoving()
         {
             if (OnMoving == null)

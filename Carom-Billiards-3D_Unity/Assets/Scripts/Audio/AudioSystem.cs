@@ -2,6 +2,9 @@
 
 namespace CaromBilliard
 {
+    /// <summary>
+    /// Class for playing all sound ingame
+    /// </summary>
     public class AudioSystem : MonoBehaviour, IServiceLocator
     {
         void IServiceLocator.ProvideService() { }
@@ -27,6 +30,11 @@ namespace CaromBilliard
                 ballsManager.Balls[i].OnHit += PlayHit;
         }
 
+        /// <summary>
+        /// Plays a hit sound when an object hits something.
+        /// </summary>
+        /// <param name="sourceObj"> The source object should here be the ball. </param>
+        /// <param name="objectToHit"> The object that was hitted. </param>
         private void PlayHit(GameObject sourceObj, GameObject objectToHit)
         {
             if (objectToHit.tag == "Ball" || objectToHit.tag == "Player")

@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace CaromBilliard
 {
+    /// <summary>
+    /// Manages the stats that the player reaches during playing.
+    /// </summary>
     public class IngameScoreSystem : ScoreSystem
     {
         public override void ProvideService()
@@ -34,6 +37,9 @@ namespace CaromBilliard
             replaySystem.OnReplayStop += () => useTimer = true;
         }
 
+        /// <summary>
+        /// Register all events that are needed for updating the score.
+        /// </summary>
         void RegisterEvents()
         {
             playerController.OnApplyForce += ApplyShots;
@@ -41,9 +47,12 @@ namespace CaromBilliard
             OnGameOver += GameOver;
 
             for (int i = 0; i < ballsManager.Balls.Length; i++)
-                ballsManager.Balls[i].OnHit += GetPoints;
+                ballsManager.Balls[i].OnHit += GetScore;
         }
 
+        /// <summary>
+        /// Unregister all events.
+        /// </summary>
         void UnregisterEvents()
         {
             playerController.OnApplyForce -= ApplyShots;
@@ -51,10 +60,14 @@ namespace CaromBilliard
             OnGameOver -= GameOver;
 
             for (int i = 0; i < ballsManager.Balls.Length; i++)
-                ballsManager.Balls[i].OnHit -= GetPoints;
+                ballsManager.Balls[i].OnHit -= GetScore;
         }
 
-        void ApplyShots(float f)
+        /// <summary>
+        /// Increases the current shots.
+        /// </summary>
+        /// <param name="force"> The value of how much force was added to the ball. Just here for the event. </param>
+        void ApplyShots(float force)
         {
             CurShots++;
         }
@@ -64,6 +77,9 @@ namespace CaromBilliard
             Timer();
         }
 
+        /// <summary>
+        /// Sets the timer of how long the player is playing the current round.
+        /// </summary>
         void Timer()
         {
             if (useTimer)
@@ -72,7 +88,12 @@ namespace CaromBilliard
 
         private GameObject preHitObject;
 
-        void GetPoints(GameObject source, GameObject target)
+        /// <summary>
+        /// Increases the score of the player.
+        /// </summary>
+        /// <param name="source"> The object that hitted something. </param>
+        /// <param name="target"> The object that was hitted. </param>
+        void GetScore(GameObject source, GameObject target)
         {
             if (source.tag == "Player" && target.tag == "Ball")
             {
@@ -82,12 +103,19 @@ namespace CaromBilliard
             }
         }
 
+        /// <summary>
+        /// Checks if any of the balls are moving.
+        /// </summary>
+        /// <param name="isMoving"> If the balls are moving. </param>
         void CheckMove(bool isMoving)
         {
             if (!isMoving)
                 preHitObject = null;
         }
 
+        /// <summary>
+        /// Called when the game is over.
+        /// </summary>
         void GameOver()
         {
             useTimer = false;

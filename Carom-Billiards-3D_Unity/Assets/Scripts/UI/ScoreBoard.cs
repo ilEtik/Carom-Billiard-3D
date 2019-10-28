@@ -3,6 +3,9 @@ using TMPro;
 
 namespace CaromBilliard
 {
+    /// <summary>
+    /// Sets the values of the scoreboard.
+    /// </summary>
     public class ScoreBoard : MonoBehaviour, IServiceLocator
     {        
         void IServiceLocator.ProvideService() { }
@@ -22,6 +25,10 @@ namespace CaromBilliard
             scoreSystem.OnStatsLoaded += SetScoreBoard;
         }
 
+        /// <summary>
+        /// Sets the values of the scoreboard.
+        /// </summary>
+        /// <param name="stats"> The stats of the player. </param>
         public void SetScoreBoard(PlayerStats stats)
         {
             if (shotsValue != null)
