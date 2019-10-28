@@ -35,6 +35,8 @@ namespace CaromBilliard
 
         private void Start()
         {
+            SetCursorDisplayMode(false);
+
             if (forceSliderElement != null)
             {
                 forceSlider = forceSliderElement.GetComponentInChildren<Slider>();
@@ -57,7 +59,18 @@ namespace CaromBilliard
             ballsManager.OnMoving += SetLine;
             replaySystem.OnReplayStart += ShowReplayOverlay;
             replaySystem.OnReplayStop += HideReplayOverlay;
+            scoreSystem.OnGameOver += () => SetCursorDisplayMode(true);
             scoreSystem.OnGameOver += GameOver;
+        }
+
+        /// <summary>
+        /// Sets the cursor visibilty and lockstate.
+        /// </summary>
+        /// <param name="showCursor"> Is the cursor is shown. </param>
+        void SetCursorDisplayMode(bool showCursor)
+        {
+            Cursor.lockState = showCursor ? CursorLockMode.None : CursorLockMode.Locked;
+            Cursor.visible = showCursor;
         }
 
         /// <summary>
