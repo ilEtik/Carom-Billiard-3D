@@ -14,7 +14,7 @@ namespace CaromBilliard
             scoreSystem = ServiceLocator.GetService<ScoreSystem>();
         }
 
-        public TextMeshProUGUI nameValue, shotsValue, scoreValue, timeMinValue, timeSecValue;
+        public TextMeshProUGUI shotsValue, scoreValue, timeMinValue, timeSecValue;
 
         private void Start()
         {
@@ -24,8 +24,6 @@ namespace CaromBilliard
 
         public void SetScoreBoard(PlayerStats stats)
         {
-            if (nameValue != null)
-                nameValue.text = stats.PlayerName;
             if (shotsValue != null)
                 shotsValue.text = stats.Shots.ToString();
             if (scoreValue != null)
