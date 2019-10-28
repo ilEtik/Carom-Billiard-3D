@@ -13,6 +13,14 @@ namespace CaromBilliard
             ServiceLocator.ProvideService(this);
         }
 
+        private ReplaySystem replaySystem;
+
+        public override void GetService()
+        {
+            base.GetService();
+            replaySystem = ServiceLocator.GetService<ReplaySystem>();
+        }
+
         public float minForce = 1f;
         public float maxForce = 20f;
         public float forceMultiplier = 5f;
@@ -27,10 +35,17 @@ namespace CaromBilliard
         public event Action<float, float, float> OnChargeForce;
         public event Action<float> OnApplyForce;
 
+        internal override void InitializeStart()
+        {
+            base.InitializeStart();
+            invoker.OnHasCommands += (hasCommands) => canReplay = hasCommands;
+        }
+
         private void Update()
         {
             GetMouse("Mouse X");
             Charging(KeyCode.Space);
+            StartReplay(KeyCode.F);
         }
 
         /// <summary>
@@ -58,14 +73,26 @@ namespace CaromBilliard
                 if (OnChargeForce != null)
                     OnChargeForce(CurForce, minForce, maxForce);
             }
-            else if (Input.GetKeyUp(inputKey))
+            if (Input.GetKeyUp(inputKey))
             {
-                invoker.AddCommand(new ShootBallCommand(this, scoreSystem.CurShots, CurForce, transform.position, transform.rotation));
+                invoker.AddCommand(new ShootBallCommand(this, CurForce, transform.position, transform.rotation));
                 CurForce = 0;
 
                 if (OnApplyForce != null)
                     OnApplyForce(CurForce);
             }
+        }
+
+        private bool canReplay;
+
+        /// <summary>
+        /// Starts a replay when the play presses a key.
+        /// </summary>
+        /// <param name="inputKey"> The key to start the replay. </param>
+        void StartReplay(KeyCode inputKey)
+        {
+            if (canReplay && !isMoving && Input.GetKeyDown(inputKey))
+                replaySystem.StartReplay();
         }
     }
 }

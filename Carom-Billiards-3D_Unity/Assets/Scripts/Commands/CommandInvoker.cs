@@ -21,7 +21,7 @@ namespace CaromBilliard
             replaySystem = ServiceLocator.GetService<ReplaySystem>();
         }
 
-        public const int MaxCommands = 16;
+        public const int MaxCommands = 32;
         public Command[] commands = new Command[MaxCommands];
         private int head = 0;
         private int tail = 0;
@@ -100,6 +100,9 @@ namespace CaromBilliard
         /// </summary>
         public void UndoCommand()
         {
+            if(commands[UndoTail] == null)
+                return;
+
             commands[UndoTail].Undo();
             UndoTail = (UndoTail - 1) % MaxCommands;
             UndoHead = (UndoHead - 1) % MaxCommands;
@@ -110,6 +113,9 @@ namespace CaromBilliard
         /// </summary>
         public void RedoCommand()
         {
+            if(commands[UndoHead] == null)
+                return;
+                
             commands[UndoHead].Execute();
         }
     }

@@ -9,7 +9,7 @@ namespace CaromBilliard
     {
         private Vector3 PrePosition { get; set; }
 
-        public BallHitCommand(Ball ball, Vector3 prePos, int executeInd) : base(ball, executeInd)
+        public BallHitCommand(Ball ball, Vector3 prePos) : base(ball)
         {
             PrePosition = prePos;
         }

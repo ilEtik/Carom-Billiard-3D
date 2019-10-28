@@ -67,7 +67,7 @@ namespace CaromBilliard
         {
             if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 5, 1, QueryTriggerInteraction.Collide))
                 return new Vector3[2] { transform.position, hit.point };
-
+                
             return new Vector3[2] { transform.position, transform.forward * 5 + transform.position };
         }
     }

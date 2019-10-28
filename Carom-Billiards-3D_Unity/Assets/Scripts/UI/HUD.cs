@@ -26,12 +26,12 @@ namespace CaromBilliard
             replaySystem = ServiceLocator.GetService<ReplaySystem>();
         }
 
-        public Button replayButton;
         public LineRenderer line;
-        public GameObject isReplayDisplay, forceSliderElement, scoreElement;
+        public GameObject replayTutorialElement, isReplayDisplay, forceSliderElement, scoreElement;
 
         private TextMeshProUGUI sliderTutorialText;
         private Slider forceSlider;
+        private Image replayTutorialImage;
 
         private void Start()
         {
@@ -42,6 +42,8 @@ namespace CaromBilliard
                 forceSlider = forceSliderElement.GetComponentInChildren<Slider>();
                 sliderTutorialText = forceSliderElement.GetComponentInChildren<TextMeshProUGUI>();
             }
+            if(replayTutorialElement != null)
+                replayTutorialImage = GetComponentInChildren<Image>();
 
             RegisterEvents();
         }
@@ -51,11 +53,11 @@ namespace CaromBilliard
         /// </summary>
         void RegisterEvents()
         {
-            invoker.OnHasCommands += SetReplayButtonActive;
+            invoker.OnHasCommands += SetReplayTutorialActive;
             playerController.OnChargeForce += SetSlider;
             playerController.OnApplyForce += SetSlider;
             playerController.OnAiming += SetLine;
-            ballsManager.OnMoving += SetReplayButton;
+            ballsManager.OnMoving += SetReplayTutorial;
             ballsManager.OnMoving += SetLine;
             replaySystem.OnReplayStart += ShowReplayOverlay;
             replaySystem.OnReplayStop += HideReplayOverlay;
@@ -106,21 +108,25 @@ namespace CaromBilliard
         /// <summary>
         /// Set the active mode of the replay button gameobject.
         /// </summary>
-        /// <param name="canReplay"> Is there anything to replay? </param>
-        void SetReplayButtonActive(bool canReplay)
+        /// <param name="canReplay"> Are the balls moving? </param>
+        void SetReplayTutorialActive(bool canReplay)
         {
-            if (replayButton != null)
-                replayButton.gameObject.SetActive(canReplay);
+            if (replayTutorialElement != null)
+                replayTutorialElement.SetActive(canReplay);
         }
 
         /// <summary>
-        /// Sets the interactivity of the replay button.
+        /// Sets the alpha of the replay image background.
         /// </summary>
         /// <param name="isMoving"> Are the balls moving? </param>
-        void SetReplayButton(bool isMoving)
+        void SetReplayTutorial(bool isMoving)
         {
-            if (replayButton != null)
-                replayButton.interactable = !isMoving;
+            if(replayTutorialImage != null)
+            {
+                Color col = replayTutorialImage.color;
+                col.a = isMoving ? .2f : 1f;
+                replayTutorialImage.color = col;
+            }
         }
 
         /// <summary>
@@ -172,8 +178,8 @@ namespace CaromBilliard
                 forceSlider.gameObject.SetActive(!isReplay);
             if (isReplayDisplay != null)
                 isReplayDisplay.SetActive(isReplay);
-            if (replayButton != null)
-                replayButton.gameObject.SetActive(!isReplay);
+            if (replayTutorialElement != null)
+                replayTutorialElement.gameObject.SetActive(!isReplay);
             if (forceSliderElement != null)
                 forceSliderElement.SetActive(!isReplay);
             if (scoreElement != null)

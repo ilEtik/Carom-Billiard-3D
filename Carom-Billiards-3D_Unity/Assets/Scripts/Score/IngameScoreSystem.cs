@@ -31,10 +31,6 @@ namespace CaromBilliard
         {
             Stats = new PlayerStats();
             RegisterEvents();
-            replaySystem.OnReplayStart += UnregisterEvents;
-            replaySystem.OnReplayStart += () => useTimer = false;
-            replaySystem.OnReplayStop += RegisterEvents;
-            replaySystem.OnReplayStop += () => useTimer = true;
         }
 
         /// <summary>
@@ -48,6 +44,12 @@ namespace CaromBilliard
 
             for (int i = 0; i < ballsManager.Balls.Length; i++)
                 ballsManager.Balls[i].OnHit += GetScore;
+
+            replaySystem.OnReplayStart += UnregisterEvents;
+            replaySystem.OnReplayStart += () => useTimer = false;
+            replaySystem.OnReplayStop += RegisterEvents;
+            replaySystem.OnReplayStop += () => useTimer = true;
+            playerController.OnApplyForce += (a) => getScore =false;
         }
 
         /// <summary>
@@ -87,6 +89,7 @@ namespace CaromBilliard
         }
 
         private GameObject preHitObject;
+        private bool getScore;
 
         /// <summary>
         /// Increases the score of the player.
@@ -98,7 +101,10 @@ namespace CaromBilliard
             if (source.tag == "Player" && target.tag == "Ball")
             {
                 if (preHitObject != null && target != preHitObject)
+                {
                     CurScore++;
+                    getScore = true;
+                }
                 preHitObject = target;
             }
         }

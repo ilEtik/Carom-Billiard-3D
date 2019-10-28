@@ -11,7 +11,7 @@ namespace CaromBilliard
         private Quaternion PreRotation { get; set; }
         private float Force { get; set; }
 
-        public ShootBallCommand(BallMotor motor, int executeInd, float force, Vector3 prePos, Quaternion preRot) : base (motor, executeInd)
+        public ShootBallCommand(BallMotor motor, float force, Vector3 prePos, Quaternion preRot) : base (motor)
         {
             Force = force;
             PrePosition = prePos;
@@ -20,7 +20,6 @@ namespace CaromBilliard
 
         public override void Execute()
         {
-            PrePosition = Motor.transform.position;
             Motor.ShootBall(Force);
         }
 

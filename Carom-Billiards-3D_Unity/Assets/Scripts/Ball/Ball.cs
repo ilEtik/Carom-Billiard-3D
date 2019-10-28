@@ -28,8 +28,6 @@ namespace CaromBilliard
 
         public event Action<GameObject, GameObject> OnHit;
 
-        public int lastShot;
-
         private void Start()
         {
             InitializeStart();
@@ -42,7 +40,6 @@ namespace CaromBilliard
         internal virtual void InitializeStart()
         {
             BallRb = GetComponent<Rigidbody>();
-            playerController.OnApplyForce += (a) => lastShot = scoreSystem.CurShots + 1;
         }
 
         /// <summary>
@@ -51,16 +48,16 @@ namespace CaromBilliard
         /// <param name="force"> Value of how much force will be applied to the ball. </param>
         public virtual void ShootBall(float force) { }
 
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.tag == "Player" && gameObject.tag == "Ball")
+                invoker.AddCommand(new BallHitCommand(this, transform.position));
+        }
+
         private void OnCollisionEnter(Collision other)
         {
             if (OnHit != null)
                 OnHit(gameObject, other.gameObject);
-
-            if (other.gameObject.tag == "Player" || other.gameObject.tag == "Ball"/*  && ScoreSystem.Instance.CurShots == lastShot */)
-            {
-                invoker.AddCommand(new BallHitCommand(this, transform.position, lastShot));
-                lastShot = 0;
-            }
         }
 
         /// <summary>
